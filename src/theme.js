@@ -29,6 +29,25 @@ const theme = extendTheme({
     heading: `'Gambetta', serif`,
     body: `'Plein', sans-serif`,
   },
+  /* styles: {
+    global: {
+      '*': {
+        '-ms-overflow-style': 'none',
+        'scrollbar-width': 'none',
+      },
+      '::-webkit-scrollbar': {
+        width: 0,
+      },
+    },
+  }, */
+  styles: {
+    global: {
+      body: {
+        overflowY: 'hidden',
+        height: '100vh',
+      },
+    },
+  },
 });
 
 export default theme;

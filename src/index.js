@@ -12,3 +12,5 @@ root.render(
     <App />
   </StrictMode>
 );
+// Fredericka the Great: for small instructions
+// MalvinW display font

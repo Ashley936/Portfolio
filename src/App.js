@@ -4,13 +4,15 @@ import { SkillPage } from './components/SkillPage';
 import { Projects } from './components/Projects';
 import theme, { Fonts } from './theme';
 import { MainPage } from './components/MainPage';
+import { Hero } from './components/Hero';
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
       <Fonts />
-      <MainPage />
+      <Hero />
       {/* 
+      <MainPage />
       <SkillPage />
       <Projects /> */}
     </ChakraProvider>

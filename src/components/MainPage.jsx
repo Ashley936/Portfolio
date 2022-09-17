@@ -1,4 +1,13 @@
-import { Box, Container, Heading } from '@chakra-ui/react';
+import {
+  Box,
+  Container,
+  Flex,
+  Heading,
+  HStack,
+  Link,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 
 export const MainPage = () => {
@@ -6,118 +15,152 @@ export const MainPage = () => {
   useEffect(() => {
     let canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
-
-    const particlesArr = [];
+    let particlesArr = [];
     let hue = 0;
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
-
+    let adjustX = 14;
+    let adjustY = 0;
     const mouse = {
       x: null,
       y: null,
+      radius: 100,
     };
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
+    window.addEventListener('resize', e => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+    canvas.addEventListener('mousemove', e => {
+      mouse.x = e.x;
+      mouse.y = e.y;
+    });
+    ctx.fillStyle = 'white';
+    ctx.font = '20px Ariel';
+    ctx.fillText('Namita', 0, 25); // fourth arg gives max width of text
+    const textCoordinates = ctx.getImageData(0, 0, 150, 100);
     class Particle {
-      constructor() {
-        this.x = mouse.x;
-        this.y = mouse.y;
-        this.size = Math.random() * 10 + 1;
-        this.speedX = Math.random() * 3 - 1.5;
-        this.speedY = Math.random() * 3 - 1.5;
-        this.color = `hsl(${hue},100%,50%)`;
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.size = 3;
+        this.baseX = this.x;
+        this.baseY = this.y;
+        this.density = Math.random() * 30 + 1;
       }
       update() {
-        if (this.size > 0.2) {
-          this.size -= 0.1;
+        let dx = this.x - mouse.x;
+        let dy = this.y - mouse.y;
+        let distance = Math.sqrt(dx * dx + dy * dy);
+        let forceDistanceX = dx / distance;
+        let forceDistanceY = dy / distance;
+        let maxDistance = mouse.radius;
+        // force contains the fraction of speed the particle should have
+        let force = (maxDistance - distance) / maxDistance;
+        let directionX = forceDistanceX * force * this.density;
+        let directionY = forceDistanceY * force * this.density;
+        if (distance < mouse.radius) {
+          // my dx and dy are -ve so directionX and directionY are also -ve so '+' here actually pushes the particles away
+          this.x += directionX;
+          this.y += directionY;
+        } else {
+          if (this.x !== this.baseX) {
+            let dx = this.x - this.baseX;
+            this.x -= dx / 2;
+          }
+          if (this.y !== this.baseY) {
+            let dy = this.y - this.baseY;
+            this.y -= dy / 2;
+          }
         }
-        this.x += this.speedX;
-        this.y += this.speedY;
       }
       draw() {
-        ctx.fillStyle = this.color;
+        ctx.fillStyle = 'white';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
       }
     }
 
-    function cearteParticle() {
-      for (let i = 0; i < 2; i++) {
-        particlesArr.push(new Particle());
-        hue += 5;
+    function init() {
+      particlesArr = [];
+      for (let y = 0, y2 = textCoordinates.height; y < y2; y++) {
+        for (let x = 0, x2 = textCoordinates.width; x < x2; x++) {
+          if (
+            textCoordinates.data[4 * y * textCoordinates.width + x * 4 + 3] >
+            128
+          ) {
+            let positionX = x + adjustX;
+            let positionY = y + adjustY;
+            particlesArr.push(new Particle(positionX * 15, positionY * 15));
+          }
+        }
       }
     }
 
-    function handleParticles() {
+    function animate() {
+      requestAnimationFrame(animate);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       for (let i = 0; i < particlesArr.length; i++) {
-        particlesArr[i].update();
         particlesArr[i].draw();
+        particlesArr[i].update();
+      }
+      connect();
+    }
+    init();
 
-        for (let j = i; j < particlesArr.length; j++) {
-          const dx = particlesArr[i].x - particlesArr[j].x;
-          const dy = particlesArr[i].y - particlesArr[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance > 10 && distance < 100) {
+    function connect() {
+      let opacity = 1;
+      for (let a = 0; a < particlesArr.length; a++) {
+        for (let b = a; b < particlesArr.length; b++) {
+          let dx = particlesArr[a].x - particlesArr[b].x;
+          let dy = particlesArr[a].y - particlesArr[b].y;
+          let distance = Math.sqrt(dx * dx + dy * dy);
+          opacity = 1 - distance / 35;
+          if (distance < 25) {
+            ctx.strokeStyle = 'rgba(255,255,255,' + opacity + ')';
+            ctx.lineWidth = 2;
             ctx.beginPath();
-            ctx.strokeStyle = particlesArr[i].color;
-            ctx.lineWidth = particlesArr[i].size / 5;
-            ctx.moveTo(particlesArr[i].x, particlesArr[i].y);
-            ctx.lineTo(particlesArr[j].x, particlesArr[j].y);
+            ctx.moveTo(particlesArr[a].x, particlesArr[a].y);
+            ctx.lineTo(particlesArr[b].x, particlesArr[b].y);
             ctx.stroke();
           }
         }
-
-        if (particlesArr[i].size <= 0.3) {
-          particlesArr.splice(i, 1);
-          i--;
-        }
       }
     }
-
-    canvas.addEventListener('mousemove', e => {
-      mouse.x = e.x;
-      mouse.y = e.y;
-      cearteParticle();
-    });
-
-    canvas.addEventListener('click', e => {
-      mouse.x = e.x;
-      mouse.y = e.y;
-      cearteParticle();
-    });
-
-    function animate() {
-      /*ctx.fillStyle = 'rgba(0,0,0,0.1)'
-        ctx.fillRect(0, 0, canvas.width, canvas.height) */
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      handleParticles();
-      requestAnimationFrame(animate);
-    }
-    animate();
+    //animate();
   }, []);
   return (
-    <Box w={'100%'} h={'100vh'} pos={'relative'}>
+    <Box
+      w={'100%'}
+      h={'100vh'}
+      pos={'relative'}
+      bg={'linear-gradient(#25364f, #4d71a5, #9bc4ff)'}
+    >
       <canvas
         style={{
           position: 'absolute',
+          zIndex: 2,
           top: 0,
           left: 0,
-          background: 'black',
-          width: '100%',
-          height: '100%',
+          background: 'transparent',
         }}
         ref={canvasRef}
       ></canvas>
-      <Heading pos={'absolute'} zIndex={10} color={'white'}>
-        {' '}
-        Hi! I am Namita
-      </Heading>
+      <HStack
+        as="nav"
+        gap={5}
+        alignSelf={'flex-end'}
+        px={10}
+        py={4}
+        fontSize={{ base: 'sm', md: 'xl' }}
+      >
+        <Link href={'#'}>Home</Link>
+        <Link href={'#'}>Skills</Link>
+        <Link href={'#'}>Projects</Link>
+        <Link href={'#'}>Contact me</Link>
+        <Link href={'#'}>Resume</Link>
+      </HStack>
     </Box>
   );
 };
