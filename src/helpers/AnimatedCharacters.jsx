@@ -7,12 +7,17 @@ export const AnimatedCharacters = ({ text, pos }) => {
     hidden: {
       y: pos,
       opacity: 0,
-      transition: { ease: [0.455, 0.03, 0.515, 0.955], duration: 0.85 },
+      transition: { ease: [0.455, 0.03, 0.515, 0.955] },
     },
     visible: {
       y: 0,
       opacity: 1,
-      transition: { ease: [0.455, 0.03, 0.515, 0.955], duration: 0.75 },
+      transition: { ease: [0.455, 0.03, 0.515, 0.955] },
+    },
+    exit: {
+      y: pos,
+      opacity: 0,
+      transition: { ease: [0.455, 0.03, 0.515, 0.955] },
     },
   };
   const splitWords = text.split(' ');
