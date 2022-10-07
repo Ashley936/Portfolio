@@ -44,7 +44,7 @@ export const AboutPart3 = ({ setDone }) => {
           setTimeout(() => setDone('page1'), 1000);
         }}
       >
-        <AnimatedLetters text="Awesome" pos="200%" />{' '}
+        <AnimatedLetters text="Awesome" pos="100%" />{' '}
       </MotionHeading>
     </MotionVStack>
   );

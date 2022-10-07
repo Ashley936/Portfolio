@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import Moon from '../images/moon.jpg';
 
-export const NavCircle = ({ width }) => {
+export const NavCircle = ({ width, setScreen }) => {
   let spin = keyframes`
   to { background-position: right }`;
   return (
@@ -19,6 +19,7 @@ export const NavCircle = ({ width }) => {
       border={'1px solid white'}
       borderRadius={'50%'}
       pos={'relative'}
+      zIndex={10000}
     >
       <Box
         w={'60%'}
@@ -53,10 +54,24 @@ export const NavCircle = ({ width }) => {
         <Text as={'span'} mr={'25%'}>
           Home
         </Text>
-        <Text as={'span'} alignSelf={'left'} mr={'10%'}>
+        <Text
+          as={'span'}
+          alignSelf={'left'}
+          mr={'10%'}
+          onClick={() => {
+            setScreen('about');
+          }}
+        >
           About
         </Text>
-        <Text as={'span'}>Projects</Text>
+        <Text
+          as={'span'}
+          onClick={() => {
+            setScreen('projects');
+          }}
+        >
+          Projects
+        </Text>
         <Text as={'span'} mr={'10%'}>
           Skills
         </Text>

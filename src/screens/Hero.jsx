@@ -4,19 +4,26 @@ import { useEffect } from 'react';
 import { AboutMe } from './AboutMe';
 import { HomeSection } from '../components/Home';
 import { NavCircle } from '../components/NavCircle';
+import { Projects } from './Projects';
+import { useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
+
 export const Hero = () => {
+  const [height, setHeight] = useState(0);
   const container = useRef();
   const mainContainer = useRef();
+  const [screen, setScreen] = useState('about');
   const width = 0.6 * window.innerHeight;
   useEffect(() => {
     let innerBox = container.current;
     let outerBox = mainContainer.current;
+    console.log(innerBox.clientWidth);
+    setHeight(innerBox.clientWidth);
     const handleScroll = e => {
       innerBox.scrollTo(e.target.scrollTop, 0);
     };
     outerBox.addEventListener('scroll', handleScroll);
     return () => {
-      console.log('over');
       outerBox.removeEventListener('scroll', handleScroll);
     };
   }, []);
@@ -47,13 +54,14 @@ export const Hero = () => {
           w={width}
           h={width}
         >
-          <NavCircle width={width} />
+          <NavCircle width={width} setScreen={setScreen} />
         </Box>
-        <AboutMe />
+        <AnimatePresence exitBeforeEnter={true}>
+          {screen === 'about' && <AboutMe key={1} />}
+          {screen === 'projects' && <Projects key={2} />}
+        </AnimatePresence>
       </Box>
-      <Box
-        h={container.current ? container.current.clientWidth : '100vw'}
-      ></Box>
+      <Box h={height}></Box>
     </Box>
   );
 };

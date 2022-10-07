@@ -5,7 +5,7 @@ const MotionBox = motion(Box);
 export const AnimatedLetters = ({ text, pos }) => {
   const item = {
     hidden: {
-      x: '100%',
+      x: pos,
       opacity: 0,
       transition: { ease: [0.455, 0.03, 0.515, 0.955] },
     },
@@ -15,7 +15,7 @@ export const AnimatedLetters = ({ text, pos }) => {
       transition: { ease: [0.455, 0.03, 0.515, 0.955] },
     },
     exit: {
-      x: '100%',
+      x: pos,
       opacity: 0,
       transition: { ease: [0.455, 0.03, 0.515, 0.955] },
     },
@@ -23,7 +23,7 @@ export const AnimatedLetters = ({ text, pos }) => {
   const letters = text.split('');
 
   return (
-    <Box overflow={'hidden'}>
+    <Box overflow={'hidden'} display={'inline-block'}>
       {letters.map((letter, index) => {
         return (
           <MotionBox
@@ -31,7 +31,7 @@ export const AnimatedLetters = ({ text, pos }) => {
             display="inline-block"
             variants={item}
             key={index}
-            style={{ WebkitTextStroke: '2px gray' }}
+            style={{ WebkitTextStroke: '2px gray', _before: {} }}
             pos={'relative'}
             _before={{
               content: `"${letter}"`,

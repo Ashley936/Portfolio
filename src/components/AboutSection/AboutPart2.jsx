@@ -62,7 +62,6 @@ export const AboutPart2 = ({ setDone }) => {
         whileInView="visible"
         exit="exit"
         variants={container}
-        fontWeight={600}
         fontSize={'9.2vw'}
         onAnimationComplete={() => {
           setTimeout(() => setDone('page3'), 1000);

@@ -18,7 +18,7 @@ export const AboutPart1 = ({ setDone }) => {
     },
     exit: {
       transition: {
-        delayChildren: 2,
+        delayChildren: 1.5,
         staggerChildren: 0.05,
       },
     },
