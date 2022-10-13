@@ -80,14 +80,14 @@ export const Skills = () => {
         my={'30px'}
         textTransform="uppercase"
       >
-        <MotionBox
-          display={'inline-block'}
-          variants={item('-100%')}
-          color={'gray.500'}
-        >
+        <MotionBox display={'inline-block'} variants={item('-100%')}>
           Ski
         </MotionBox>
-        <MotionBox display={'inline-block'} variants={item('100%')}>
+        <MotionBox
+          color="#434141"
+          display={'inline-block'}
+          variants={item('100%')}
+        >
           lls
         </MotionBox>
       </MotionHeading>

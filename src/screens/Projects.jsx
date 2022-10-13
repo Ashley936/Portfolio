@@ -6,9 +6,11 @@ import {
   HStack,
   List,
   ListItem,
+  Text,
   VStack,
 } from '@chakra-ui/react';
 import { ProjectCard } from '../components/ProjectCard/ProjectCard';
+import { ProjectInfo } from '../components/ProjectCard/ProjectInfo';
 
 const MotionBox = motion(Box);
 const MotionHeading = motion(Heading);
@@ -79,14 +81,14 @@ export const Projects = () => {
         my={'30px'}
         textTransform="uppercase"
       >
-        <MotionBox
-          display={'inline-block'}
-          variants={item('-100%')}
-          color={'gray.500'}
-        >
+        <MotionBox display={'inline-block'} variants={item('-100%')}>
           Proj
         </MotionBox>
-        <MotionBox display={'inline-block'} variants={item('100%')}>
+        <MotionBox
+          display={'inline-block'}
+          variants={item('100%')}
+          color="#434141"
+        >
           ects
         </MotionBox>
       </MotionHeading>
@@ -94,45 +96,14 @@ export const Projects = () => {
         w={'80%'}
         flexBasis={'100%'}
         flexGrow={1}
-        border={'1px solid white'}
+        border={'1px solid #434141'}
         borderRadius={'8px'}
         maxH={'70vh'}
         overflowY={'auto'}
       >
-        <HStack
-          w={'100%'}
-          flexShrink={0}
-          h={'350px'}
-          borderBottom={'1px solid white'}
-        >
-          <HStack
-            w={'50%'}
-            h={'100%'}
-            borderRight={'1px solid white'}
-            gap={'30px'}
-          >
-            <Flex h={'100%'} alignItems={'flex-end'} color={'#444'}>
-              <Heading fontSize={'7rem'} py={0}>
-                1.
-              </Heading>
-            </Flex>
-            <VStack
-              justifyContent={'space-between'}
-              py={'20px'}
-              h={'100%'}
-              textAlign={'left'}
-              alignItems={'left'}
-            >
-              <Heading>IPRESS</Heading>
-              <List px={'5px'}>
-                <ListItem>Lorem ipsum dolor sit amet consectetur</ListItem>
-                <ListItem>Lorem ipsum dolor sit amet consectetur</ListItem>
-                <ListItem>Lorem ipsum dolor sit amet consectetur</ListItem>
-                <ListItem>Lorem ipsum dolor sit amet consectetur</ListItem>
-              </List>
-            </VStack>
-          </HStack>
-        </HStack>
+        <ProjectInfo />
+        <ProjectInfo />
+        <ProjectInfo />
       </VStack>
     </MotionBox>
   );

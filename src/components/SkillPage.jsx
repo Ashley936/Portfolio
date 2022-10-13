@@ -1,4 +1,5 @@
 import { Box, Center, Heading, Text, VStack } from '@chakra-ui/react';
+import { Icon } from '@iconify/react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useRef } from 'react';
@@ -20,36 +21,221 @@ export const SkillPage = () => {
   let side3 = (mainWidth - 1.04 * width2 - 2 * width3) / 2;
 
   let width4 = 0.13 * mainWidth; // 9, 10
-  let top4 = top1 - 0.75 * width4;
-  let side4 = side3 - 0.95 * width4;
+  let top4 = top1 - 0.55 * width4;
+  let side4 = side3 - 0.9 * width4;
 
-  let width5 = 0.1 * mainWidth; // 11, 12, 13, 14
+  let width5 = 0.09 * mainWidth; // 11, 12, 13, 14
   let top5 = top1 - 0.1 * width5;
-  let side5 = side1 - 0.68 * width5;
+  let side5 = side1 - 0.75 * width5;
 
   let width6 = 0.06 * mainWidth; // 15, 16
   let top6 = top1 - 0.55 * width6;
   let side6 = side3 - 0.45 * width6;
 
   let width7 = 0.04 * mainWidth;
-  /* const renderSmallCircles = () => {
-    var indents = [];
-    for (let i = 0; i < 2 * Math.PI; i = i + Math.PI / 18) {
-      console.log(i);
-      indents.push(
-        <Box
-          w={0.04 * mainWidth}
-          h={0.04 * mainWidth}
-          borderRadius={'50%'}
-          bg={'gray.400'}
-          pos={'absolute'}
-          top={(mainWidth * (0.95 - 1.05 * Math.cos(i).toFixed(2))) / 2}
-          right={(mainWidth * (0.95 - 1.05 * Math.sin(i).toFixed(2))) / 2}
-        ></Box>
-      );
-    }
-    return indents;
-  }; */
+  let circles = [
+    {
+      width: width1,
+      height: width1,
+      top: top1,
+      left: side1 - 5,
+    },
+    {
+      width: width1,
+      height: width1,
+      top: top1,
+      right: side1 - 5,
+    },
+    {
+      width: width2,
+      height: width2,
+      top: top2 + 20,
+      left: side2,
+    },
+    {
+      width: width2,
+      height: width2,
+      bottom: top2 + 20,
+      left: side2,
+    },
+    {
+      width: width3,
+      height: width3,
+      top: top3,
+      left: side3,
+    },
+    {
+      width: width3,
+      height: width3,
+      top: top3,
+      right: side3,
+    },
+    {
+      width: width3,
+      height: width3,
+      bottom: top3,
+      left: side3,
+    },
+    {
+      width: width3,
+      height: width3,
+      bottom: top3,
+      right: side3,
+    },
+    {
+      width: width4,
+      height: width4,
+      top: top4,
+      left: side4,
+    },
+    {
+      width: width4,
+      height: width4,
+      bottom: top4,
+      right: side4,
+    },
+    {
+      width: width5,
+      height: width5,
+      top: top5,
+      right: side5,
+    },
+    {
+      width: width5,
+      height: width5,
+      bottom: top5,
+      left: side5,
+    },
+    {
+      width: width5,
+      height: width5,
+      top: top5 - 1.1 * width5,
+      right: side3 - 1.1 * width5,
+    },
+    {
+      width: width5,
+      height: width5,
+      bottom: top5 - 1.1 * width5,
+      left: side3 - 1.1 * width5,
+    },
+    {
+      width: width6,
+      height: width6,
+      top: top6,
+      right: side6,
+    },
+    {
+      width: width6,
+      height: width6,
+      bottom: top6,
+      left: side6,
+    },
+    {
+      width: width6,
+      height: width6,
+      top: top5 + 1.1 * width5,
+      right: side5,
+    },
+    { width: width6, height: width6, bottom: top5 + 1.1 * width5, left: side5 },
+    {
+      width: width6,
+      height: width6,
+      top: top3 - 0.7 * width6,
+      left: side2 - 0.8 * width6,
+    },
+    { width: width6, height: width6, top: top3 - 1.6 * width6, left: side2 },
+    {
+      width: width6,
+      height: width6,
+      top: top3 - 1.3 * width6,
+      right: side2 - 7,
+    },
+    {
+      width: width6,
+      height: width6,
+      top: -1,
+      right: side2 + 0.7 * width6,
+    },
+    {
+      width: width7,
+      height: width7,
+      top: top2,
+      left: side2 + width6 + 5,
+    },
+    {
+      width: width7,
+      height: width7,
+      top: top3 - 0.5 * width7,
+      right: side2 - 0.8 * width7,
+    },
+  ];
+  let logos = [
+    'logos:nodejs',
+    'logos:react',
+    'logos:typescript-icon-round',
+    'logos:redux',
+    'vscode-icons:file-type-node2',
+    'logos:figma',
+    'logos:python',
+    'logos:mongodb-icon',
+    'logos:css-3',
+    'logos:c-plusplus',
+    'logos:react-router',
+    'bytesize:github',
+    'logos:react-spring',
+    'logos:c',
+    'logos:framer',
+    'simple-icons:chakraui',
+    'logos:firebase',
+    'logos:bootstrap',
+    'logos:babel',
+    'cib:jquery',
+    'cib:next-js',
+    'vscode-icons:file-type-matlab',
+    'bi:git',
+    'logos:handlebars',
+  ];
+  const renderSmallCircles = (style, index) => {
+    return (
+      <Box
+        key={index}
+        borderRadius={'50%'}
+        bg={'white'}
+        p={'1px'}
+        pos={'absolute'}
+        style={style}
+        display={'flex'}
+        justifyContent={'center'}
+        alignItems={'center'}
+        fontSize={'1rem'}
+        color="black"
+        transition={'all linear 0.05s'}
+        _hover={{ transform: 'scale(1.05)' }}
+      >
+        {logos[index] ? (
+          <Icon
+            icon={logos[index]}
+            style={{
+              width: '100%',
+              height: '100%',
+              borderRadius: '50%',
+            }}
+            color={
+              logos[index] === 'bi:git'
+                ? '#E84D31'
+                : logos[index] === 'simple-icons:chakraui'
+                ? '#55C8C6'
+                : logos[index] === 'cib:jquery'
+                ? '#0075F7'
+                : ''
+            }
+          />
+        ) : (
+          index
+        )}
+      </Box>
+    );
+  };
   useEffect(() => {
     let main = mainCircle.current;
     setMainWidth(main.clientWidth);
@@ -65,231 +251,17 @@ export const SkillPage = () => {
   return (
     <VStack>
       <Box
-        w={'70vh'}
-        h={'70vh'}
+        w={'75vh'}
+        h={'75vh'}
         maxW={'700px'}
         maxH={'700px'}
         borderRadius={'50%'}
-        bg={'gray.100'}
+        bg={'black'}
         ref={mainCircle}
         pos={'relative'}
+        boxShadow={'0px -1px 12px #434141'}
       >
-        <Box
-          w={width1}
-          h={width1}
-          borderRadius={'50%'}
-          bg={'gray.200'}
-          pos={'absolute'}
-          top={top1}
-          left={side1 - 5}
-        ></Box>
-        <Box
-          w={width1}
-          h={width1}
-          borderRadius={'50%'}
-          bg={'gray.200'}
-          pos={'absolute'}
-          top={top1}
-          right={side1 - 5}
-        ></Box>
-        <Box
-          w={width2}
-          h={width2}
-          borderRadius={'50%'}
-          bg={'gray.300'}
-          pos={'absolute'}
-          top={top2 + 20}
-          left={side2}
-        ></Box>
-        <Box
-          w={width2}
-          h={width2}
-          borderRadius={'50%'}
-          bg={'gray.300'}
-          pos={'absolute'}
-          bottom={top2 + 20}
-          left={side2}
-        ></Box>
-        <Box
-          w={width3}
-          h={width3}
-          borderRadius={'50%'}
-          bg={'gray.400'}
-          pos={'absolute'}
-          top={top3}
-          left={side3}
-        ></Box>
-        <Box
-          w={width3}
-          h={width3}
-          borderRadius={'50%'}
-          bg={'gray.400'}
-          pos={'absolute'}
-          top={top3}
-          right={side3}
-        ></Box>
-        <Box
-          w={width3}
-          h={width3}
-          borderRadius={'50%'}
-          bg={'gray.400'}
-          pos={'absolute'}
-          bottom={top3}
-          left={side3}
-        ></Box>
-        <Box
-          w={width3}
-          h={width3}
-          borderRadius={'50%'}
-          bg={'gray.400'}
-          pos={'absolute'}
-          bottom={top3}
-          right={side3}
-        ></Box>
-        <Box
-          w={width4}
-          h={width4}
-          borderRadius={'50%'}
-          bg={'gray.200'}
-          pos={'absolute'}
-          top={top4}
-          left={side4}
-        ></Box>
-        <Box
-          w={width4}
-          h={width4}
-          borderRadius={'50%'}
-          bg={'gray.200'}
-          pos={'absolute'}
-          bottom={top4}
-          right={side4}
-        ></Box>
-        <Box
-          w={width5}
-          h={width5}
-          borderRadius={'50%'}
-          bg={'gray.400'}
-          pos={'absolute'}
-          top={top5}
-          right={side5}
-        ></Box>
-        <Box
-          w={width5}
-          h={width5}
-          borderRadius={'50%'}
-          bg={'gray.400'}
-          pos={'absolute'}
-          bottom={top5}
-          left={side5}
-        ></Box>
-        <Box
-          w={width5}
-          h={width5}
-          borderRadius={'50%'}
-          bg={'gray.400'}
-          pos={'absolute'}
-          top={top5 - 1.1 * width5}
-          right={side3 - 1.1 * width5}
-        ></Box>
-        <Box
-          w={width5}
-          h={width5}
-          borderRadius={'50%'}
-          bg={'gray.400'}
-          pos={'absolute'}
-          bottom={top5 - 1.1 * width5}
-          left={side3 - 1.1 * width5}
-        ></Box>
-        <Box
-          w={width6}
-          h={width6}
-          borderRadius={'50%'}
-          bg={'gray.300'}
-          pos={'absolute'}
-          top={top6}
-          right={side6}
-        ></Box>
-        <Box
-          w={width6}
-          h={width6}
-          borderRadius={'50%'}
-          bg={'gray.300'}
-          pos={'absolute'}
-          bottom={top6}
-          left={side6}
-        ></Box>
-        <Box
-          w={width6}
-          h={width6}
-          borderRadius={'50%'}
-          bg={'gray.300'}
-          pos={'absolute'}
-          top={top5 + 1.1 * width5}
-          right={side5}
-        ></Box>
-        <Box
-          w={width6}
-          h={width6}
-          borderRadius={'50%'}
-          bg={'gray.300'}
-          pos={'absolute'}
-          bottom={top5 + 1.1 * width5}
-          left={side5}
-        ></Box>
-        <Box
-          w={width6}
-          h={width6}
-          borderRadius={'50%'}
-          bg={'gray.500'}
-          pos={'absolute'}
-          top={top3 - 0.7 * width6}
-          left={side2 - 0.8 * width6}
-        ></Box>
-        <Box
-          w={width6}
-          h={width6}
-          borderRadius={'50%'}
-          bg={'gray.600'}
-          pos={'absolute'}
-          top={top3 - 1.6 * width6}
-          left={side2}
-        ></Box>
-        <Box
-          w={width6}
-          h={width6}
-          borderRadius={'50%'}
-          bg={'gray.700'}
-          pos={'absolute'}
-          top={top3 - 1.3 * width6}
-          right={side2 - 7}
-        ></Box>
-        <Box
-          w={width6}
-          h={width6}
-          borderRadius={'50%'}
-          bg={'gray.500'}
-          pos={'absolute'}
-          top={-1}
-          right={side2 + 0.7 * width6}
-        ></Box>
-        <Box
-          w={width7}
-          h={width7}
-          borderRadius={'50%'}
-          bg={'gray.500'}
-          pos={'absolute'}
-          top={top2}
-          left={side2 + width6 + 5}
-        ></Box>
-        <Box
-          w={width7}
-          h={width7}
-          borderRadius={'50%'}
-          bg={'gray.500'}
-          pos={'absolute'}
-          top={top3 - 0.5 * width7}
-          right={side2 - 0.8 * width7}
-        ></Box>
+        {circles.map((style, index) => renderSmallCircles(style, index))}
       </Box>
     </VStack>
   );
