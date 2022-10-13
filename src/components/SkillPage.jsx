@@ -64,10 +64,9 @@ export const SkillPage = () => {
   }, []);
   return (
     <VStack>
-      <Heading fontStyle={'italic'}>Skills</Heading>
       <Box
-        w={'50vw'}
-        h={'50vw'}
+        w={'70vh'}
+        h={'70vh'}
         maxW={'700px'}
         maxH={'700px'}
         borderRadius={'50%'}

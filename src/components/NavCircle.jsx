@@ -72,10 +72,22 @@ export const NavCircle = ({ width, setScreen }) => {
         >
           Projects
         </Text>
-        <Text as={'span'} mr={'10%'}>
+        <Text
+          as={'span'}
+          mr={'10%'}
+          onClick={() => {
+            setScreen('skills');
+          }}
+        >
           Skills
         </Text>
-        <Text as={'span'} mr={'25%'}>
+        <Text
+          as={'span'}
+          mr={'25%'}
+          onClick={() => {
+            setScreen('connect');
+          }}
+        >
           Contact
         </Text>
       </Flex>
