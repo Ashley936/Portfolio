@@ -10,9 +10,13 @@ import { AnimatePresence } from 'framer-motion';
 import { Skills } from './Skills';
 import { Features } from './Features';
 import { Connect } from './Connect';
+import { HomeSectionLight } from '../components/HomeLight';
+import { NavCircleLight } from '../components/NavCircleLight';
+import { ConnectLight } from './ConnectLight';
 
 export const Hero = () => {
   const [height, setHeight] = useState(0);
+  const [lightMode, setLightMode] = useState(true);
   const container = useRef();
   const mainContainer = useRef();
   const [screen, setScreen] = useState('about');
@@ -53,7 +57,7 @@ export const Hero = () => {
       overflowY={'scroll'}
       pos={'relative'}
       overflowX={'hidden'}
-      bg={'black'}
+      bg={lightMode ? 'bgTheme.100' : 'black'}
     >
       <Box
         pos="sticky"
@@ -65,7 +69,7 @@ export const Hero = () => {
         ref={container}
         display={'flex'}
       >
-        <HomeSection />
+        {lightMode ? <HomeSectionLight /> : <HomeSection />}
         <Box
           pos={'absolute'}
           top={(window.innerHeight - width) / 2}
@@ -73,14 +77,28 @@ export const Hero = () => {
           w={width}
           h={width}
         >
-          <NavCircle width={width} setScreen={setScreen} />
+          {!lightMode ? (
+            <NavCircle width={width} setScreen={setScreen} />
+          ) : (
+            <NavCircleLight width={width} setScreen={setScreen} />
+          )}
         </Box>
         <AnimatePresence exitBeforeEnter={true}>
-          {screen === 'about' && <AboutMe key={1} />}
-          {screen === 'projects' && <Projects key={2} />}
-          {screen === 'skills' && <Skills key={3} />}
-          {screen === 'features' && <Features key={4} />}
-          {screen === 'connect' && <Connect key={5} />}
+          {screen === 'about' && <AboutMe key={1} lightMode={lightMode} />}
+          {screen === 'projects' && <Projects key={2} lightMode={lightMode} />}
+          {screen === 'skills' && <Skills key={3} lightMode={lightMode} />}
+          {screen === 'features' &&
+            (lightMode ? (
+              <ConnectLight key={5} />
+            ) : (
+              <Features key={4} lightMode={lightMode} />
+            ))}
+          {screen === 'connect' &&
+            (lightMode ? (
+              <ConnectLight key={5} />
+            ) : (
+              <Connect key={5} lightMode={lightMode} />
+            ))}
         </AnimatePresence>
       </Box>
       <Box h={'400vw'}></Box>

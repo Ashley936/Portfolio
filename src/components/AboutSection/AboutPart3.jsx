@@ -5,7 +5,7 @@ import { AnimatedLetters } from '../../helpers/AnimateLetters';
 
 const MotionVStack = motion(VStack);
 const MotionHeading = motion(Heading);
-export const AboutPart3 = ({ setDone }) => {
+export const AboutPart3 = ({ setDone, lightMode }) => {
   const container = {
     hidden: {
       transition: {
@@ -39,12 +39,12 @@ export const AboutPart3 = ({ setDone }) => {
         variants={container}
         fontStyle={'bold'}
         fontSize={'13vw'}
-        color={'black'}
+        color={'transparent'}
         onAnimationComplete={() => {
           setTimeout(() => setDone('page1'), 1000);
         }}
       >
-        <AnimatedLetters text="Awesome" pos="100%" />{' '}
+        <AnimatedLetters text="Awesome" pos="100%" lightMode={lightMode} />{' '}
       </MotionHeading>
     </MotionVStack>
   );

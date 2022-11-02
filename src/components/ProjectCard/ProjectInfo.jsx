@@ -8,22 +8,26 @@ import {
   VStack,
 } from '@chakra-ui/react';
 
-export const ProjectInfo = ({ info, index }) => {
+export const ProjectInfo = ({ info, index, lightMode }) => {
   return (
     <HStack
       w={'100%'}
       flexShrink={0}
       h={'350px'}
-      borderBottom={'1px solid #434141'}
+      borderBottom={lightMode ? '1px solid #D3C3A5' : '1px solid #434141'}
     >
       <HStack
         w={'50%'}
         h={'100%'}
-        borderRight={'1px solid #434141'}
+        borderRight={lightMode ? '1px solid #D3C3A5' : '1px solid #434141'}
         p={3}
         gap={'10%'}
       >
-        <Flex h={'100%'} alignItems={'flex-end'} color={'#444'}>
+        <Flex
+          h={'100%'}
+          alignItems={'flex-end'}
+          color={lightMode ? 'redTheme.100' : '#444'}
+        >
           <Text
             lineHeight={0.8}
             fontSize={'7rem'}
@@ -40,10 +44,15 @@ export const ProjectInfo = ({ info, index }) => {
           textAlign={'left'}
           alignItems={'left'}
         >
-          <Heading fontSize={'3rem'} fontWeight={600} mt={'5%'}>
+          <Heading
+            fontSize={'3rem'}
+            fontWeight={600}
+            mt={'5%'}
+            color={lightMode && 'blueTheme.300'}
+          >
             IPRESS
           </Heading>
-          <List px={'5px'} fontSize={'0.9rem'}>
+          <List px={'5px'} fontSize={'0.95rem'} color={lightMode && 'gray.800'}>
             <ListItem>Lorem ipsum dolor sit amet consectetur</ListItem>
             <ListItem>Lorem ipsum dolor sit amet consectetur</ListItem>
             <ListItem>Lorem ipsum dolor sit amet consectetur</ListItem>

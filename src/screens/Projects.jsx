@@ -1,54 +1,11 @@
 import { motion } from 'framer-motion';
-import {
-  Box,
-  Flex,
-  Heading,
-  HStack,
-  List,
-  ListItem,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
-import { ProjectCard } from '../components/ProjectCard/ProjectCard';
+import { Box, Heading, VStack } from '@chakra-ui/react';
 import { ProjectInfo } from '../components/ProjectCard/ProjectInfo';
+import { container, item } from '../helpers/animation';
 
 const MotionBox = motion(Box);
 const MotionHeading = motion(Heading);
-export const Projects = () => {
-  const container = {
-    hidden: {
-      transition: {
-        staggerChildren: 0.025,
-      },
-    },
-    visible: {
-      transition: {
-        staggerChildren: 0.05,
-      },
-    },
-    exit: {
-      transition: {
-        staggerChildren: 0.05,
-      },
-    },
-  };
-  const item = pos => ({
-    hidden: {
-      x: pos,
-      opacity: 0,
-      transition: { ease: [0.455, 0.03, 0.515, 0.955], duration: 0.5 },
-    },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: { ease: [0.455, 0.03, 0.515, 0.955], duration: 0.5 },
-    },
-    exit: {
-      x: pos,
-      opacity: 0,
-      transition: { ease: [0.455, 0.03, 0.515, 0.955] },
-    },
-  });
+export const Projects = ({ lightMode }) => {
   return (
     <MotionBox
       key={2}
@@ -56,8 +13,8 @@ export const Projects = () => {
       animate={{ y: 0 }}
       transition={{ ease: [0.455, 0.03, 0.515, 0.955], duration: 0.5 }}
       exit={{ y: '-100%' }}
-      color={'white'}
-      bg={'#000'}
+      color={lightMode ? 'redTheme.200' : 'white'}
+      bg={'transparent'}
       w={'100vw'}
       h={'100%'}
       flexShrink={0}
@@ -87,7 +44,7 @@ export const Projects = () => {
         <MotionBox
           display={'inline-block'}
           variants={item('100%')}
-          color="#434141"
+          color={lightMode ? 'blueTheme.300' : '#434141'}
         >
           ects
         </MotionBox>
@@ -97,13 +54,16 @@ export const Projects = () => {
         flexBasis={'100%'}
         flexGrow={1}
         border={'1px solid #434141'}
+        borderColor={'bgTheme.200'}
         borderRadius={'8px'}
         maxH={'70vh'}
         overflowY={'auto'}
+        spacing={0}
       >
-        <ProjectInfo />
-        <ProjectInfo />
-        <ProjectInfo />
+        <ProjectInfo lightMode={lightMode} />
+        <ProjectInfo lightMode={lightMode} />
+        <ProjectInfo lightMode={lightMode} />
+        <ProjectInfo lightMode={lightMode} />
       </VStack>
     </MotionBox>
   );

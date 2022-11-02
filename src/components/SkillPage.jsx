@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 
-export const SkillPage = () => {
+export const SkillPage = ({ lightMode }) => {
   const [mainWidth, setMainWidth] = useState(0);
   const mainCircle = useRef();
 
@@ -256,10 +256,12 @@ export const SkillPage = () => {
         maxW={'700px'}
         maxH={'700px'}
         borderRadius={'50%'}
-        bg={'black'}
+        bg={lightMode ? 'bgTheme.200' : 'black'}
         ref={mainCircle}
         pos={'relative'}
-        boxShadow={'0px -1px 12px #434141'}
+        boxShadow={
+          lightMode ? '0px -1px 12px #8E8D8A' : '0px -1px 12px #434141'
+        }
       >
         {circles.map((style, index) => renderSmallCircles(style, index))}
       </Box>

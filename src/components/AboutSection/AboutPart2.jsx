@@ -4,7 +4,7 @@ import { AnimatedCharacters } from '../../helpers/AnimatedCharacters';
 
 const MotionVStack = motion(VStack);
 const MotionHeading = motion(Heading);
-export const AboutPart2 = ({ setDone }) => {
+export const AboutPart2 = ({ setDone, lightMode }) => {
   const container = {
     hidden: {
       transition: {
@@ -42,8 +42,8 @@ export const AboutPart2 = ({ setDone }) => {
         variants={container}
         fontStyle={'bold'}
         fontSize={'9.2vw'}
-        color={'black'}
-        style={{ WebkitTextStroke: '1px white' }}
+        color={'transparent'}
+        style={{ WebkitTextStroke: lightMode ? '2px #F13C20' : '1px white' }}
       >
         <AnimatedCharacters text="Let's" pos="-200%" />
       </MotionHeading>
@@ -53,7 +53,7 @@ export const AboutPart2 = ({ setDone }) => {
         exit="exit"
         variants={container}
         fontSize={'9.8vw'}
-        color={'gray.500'}
+        color={lightMode ? 'blueTheme.300' : 'gray.500'}
       >
         <AnimatedCharacters text="Create" pos="-200%" />
       </MotionHeading>

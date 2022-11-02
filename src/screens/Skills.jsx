@@ -1,53 +1,11 @@
 import { motion } from 'framer-motion';
-import {
-  Box,
-  Flex,
-  Heading,
-  HStack,
-  List,
-  ListItem,
-  VStack,
-} from '@chakra-ui/react';
+import { Box, Heading } from '@chakra-ui/react';
 import { SkillPage } from '../components/SkillPage';
-import { AnimatedCharacters } from '../helpers/AnimatedCharacters';
+import { container, item } from '../helpers/animation';
 
 const MotionBox = motion(Box);
 const MotionHeading = motion(Heading);
-export const Skills = () => {
-  const container = {
-    hidden: {
-      transition: {
-        staggerChildren: 0.025,
-      },
-    },
-    visible: {
-      transition: {
-        staggerChildren: 0.05,
-      },
-    },
-    exit: {
-      transition: {
-        staggerChildren: 0.05,
-      },
-    },
-  };
-  const item = pos => ({
-    hidden: {
-      x: pos,
-      opacity: 0,
-      transition: { ease: [0.455, 0.03, 0.515, 0.955], duration: 0.5 },
-    },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: { ease: [0.455, 0.03, 0.515, 0.955], duration: 0.5 },
-    },
-    exit: {
-      x: pos,
-      opacity: 0,
-      transition: { ease: [0.455, 0.03, 0.515, 0.955] },
-    },
-  });
+export const Skills = ({ lightMode }) => {
   return (
     <MotionBox
       key={3}
@@ -55,8 +13,8 @@ export const Skills = () => {
       animate={{ y: 0 }}
       transition={{ ease: [0.455, 0.03, 0.515, 0.955], duration: 0.5 }}
       exit={{ y: '-100%' }}
-      color={'white'}
-      bg={'#000'}
+      color={lightMode ? 'redTheme.200' : 'white'}
+      bg={'transparent'}
       w={'100vw'}
       h={'100%'}
       flexShrink={0}
@@ -84,7 +42,7 @@ export const Skills = () => {
           Ski
         </MotionBox>
         <MotionBox
-          color="#434141"
+          color={lightMode ? 'blueTheme.300' : '#434141'}
           display={'inline-block'}
           variants={item('100%')}
         >
@@ -92,7 +50,7 @@ export const Skills = () => {
         </MotionBox>
       </MotionHeading>
       <Box>
-        <SkillPage />
+        <SkillPage lightMode={lightMode} />
       </Box>
     </MotionBox>
   );

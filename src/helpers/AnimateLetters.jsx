@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Box } from '@chakra-ui/react';
 const MotionBox = motion(Box);
-export const AnimatedLetters = ({ text, pos }) => {
+export const AnimatedLetters = ({ text, pos, lightMode }) => {
   const item = {
     hidden: {
       x: pos,
@@ -31,15 +31,18 @@ export const AnimatedLetters = ({ text, pos }) => {
             display="inline-block"
             variants={item}
             key={index}
-            style={{ WebkitTextStroke: '2px gray', _before: {} }}
+            style={{
+              WebkitTextStroke: lightMode ? '2px #E98074' : '2px gray',
+              _before: {},
+            }}
             pos={'relative'}
             _before={{
               content: `"${letter}"`,
               position: 'absolute',
               top: '10px',
               left: '10px',
-              color: 'white',
-              WebkitTextStroke: '2px white',
+              color: lightMode ? 'blueTheme.300' : 'white',
+              WebkitTextStroke: lightMode ? '2px transparent' : '2px white',
             }}
           >
             {letter}
